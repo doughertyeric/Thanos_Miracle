@@ -1,6 +1,15 @@
 library(shiny)
+library(tidyverse)
+library(sf)
 
-towns <- read_csv('Towns_Population_2016.csv')
+#towns <- read_csv('Towns_Population_2016_Prep.csv')
+
+towns <- read_csv('Towns_Population_2016.csv') %>%
+  filter(PLACE != 0) %>%
+  filter(PLACE != 99990) %>%
+  filter(POPESTIMATE2016 != 0)
+towns$lon <- NA
+towns$lat <- NA
 
 ui <- fluidPage(
   sliderInput(inputId = 'depart.prob',
