@@ -24,15 +24,3 @@ for (i in 1:length(name_list)) {
   towns$lon[i] <- temp.coords$lon
   towns$lat[i] <- temp.coords$lat
 }
-
-
-################################################
-
-
-
-print(max(all_zeros$Population))
-
-all_zeros <- st_as_sf(all_zeros, coords=4:5, crs=4326)
-max_zero <- all_zeros[1,]
-
-ggplot() + geom_sf(data=all_zeros, aes(size=Population, fill=1))
