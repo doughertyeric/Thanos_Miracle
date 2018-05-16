@@ -1,4 +1,4 @@
-# Thanos Miracle
+# Thanos's Miracle
 
 [SPOILER ALERT!!]
 
