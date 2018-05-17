@@ -42,7 +42,7 @@ ui <- fluidPage(
             that experienced zero departures are returned.'),
   sliderInput(inputId = 'depart.prob',
               label = 'Departure Probability',
-              value = 0.5, min = 0.01, max = 0.99),
+              value = 0.5, min = 0.01, max = 0.50),
   actionButton("rerun", "Re-run Simulation"),
   plotOutput(outputId = 'map'),
   DT::dataTableOutput(outputId = 'table')
@@ -86,7 +86,7 @@ server <- function(input, output) {
     }
     
     departure.sim(input$depart.prob)
-  })
+  }, ignoreNULL = FALSE)
   
   output$map <- renderPlot({
     all_zeros_sf <- st_as_sf(all_zero_func(), coords=3:4, crs=4326)
@@ -94,7 +94,7 @@ server <- function(input, output) {
     ggplot() + 
       geom_polygon(data=all_states, aes(x=long, y = lat, group = group, fill=1, color=as.factor(1))) +
       scale_color_manual(values='black') +
-      geom_sf(data=all_zeros_sf, aes(size = (Population * (10/max(Population))))) +
+      geom_sf(data=all_zeros_sf, aes(stroke = (Population * (4/max(Population))))) +
       theme(legend.position="none")
   })
   
